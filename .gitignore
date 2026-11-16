@@ -1,0 +1,16 @@
+# Local credentials and personal settings
+.env
+.env.*
+!.env.example
+.claude/settings.local.json
+.claude.json
+
+# Personal handoff note (keep on the laptop)
+/CONTINUE_TOMORROW.md
+
+# Temporary files
+__pycache__/
+*.pyc
+*.log
+Thumbs.db
+.DS_Store

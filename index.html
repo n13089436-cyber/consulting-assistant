@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Помощник консультанта — бриф по процессу</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="page-header">
+    <h1>Помощник консультанта</h1>
+    <p class="lead">
+      Заполните анкету о рабочем процессе клиента и сформируйте бриф
+      для последующего разбора. Данные остаются в браузере и никуда не отправляются.
+    </p>
+  </header>
+
+  <main>
+    <form id="brief-form" novalidate>
+      <p class="note">
+        Поля, отмеченные <span class="req" aria-hidden="true">*</span>,
+        обязательны. Значение из одних пробелов считается пустым.
+        Остальные поля можно оставить пустыми — в брифе появится пометка
+        «Не указано — нужно уточнить».
+      </p>
+
+      <div class="field">
+        <label for="processName">Название процесса <span class="req">*</span></label>
+        <p class="hint">Коротко: какой процесс описывается.</p>
+        <input
+          type="text"
+          id="processName"
+          name="processName"
+          data-field
+          data-required="true"
+          data-title="Название процесса"
+          aria-required="true"
+          aria-describedby="error-processName"
+          autocomplete="off">
+        <p class="error" id="error-processName" role="alert"></p>
+      </div>
+
+      <div class="field">
+        <label for="processGoal">Цель процесса <span class="req">*</span></label>
+        <p class="hint">Зачем этот процесс нужен и какой результат должен давать.</p>
+        <textarea
+          id="processGoal"
+          name="processGoal"
+          rows="3"
+          data-field
+          data-required="true"
+          data-title="Цель процесса"
+          aria-required="true"
+          aria-describedby="error-processGoal"></textarea>
+        <p class="error" id="error-processGoal" role="alert"></p>
+      </div>
+
+      <div class="field">
+        <label for="triggerEvent">Событие, с которого начинается процесс</label>
+        <p class="hint">Что запускает процесс: заявка, звонок, заказ, обращение.</p>
+        <textarea
+          id="triggerEvent"
+          name="triggerEvent"
+          rows="3"
+          data-field
+          data-required="false"
+          data-title="Событие, с которого начинается процесс"
+          aria-describedby="error-triggerEvent"></textarea>
+        <p class="error" id="error-triggerEvent" role="alert"></p>
+      </div>
+
+      <div class="field">
+        <label for="steps">Основные действия и их последовательность <span class="req">*</span></label>
+        <p class="hint">Перечислите шаги по порядку, каждый шаг с новой строки или с номером.</p>
+        <textarea
+          id="steps"
+          name="steps"
+          rows="7"
+          data-field
+          data-required="true"
+          data-title="Основные действия и их последовательность"
+          aria-required="true"
+          aria-describedby="error-steps"></textarea>
+        <p class="error" id="error-steps" role="alert"></p>
+      </div>
+
+      <div class="field">
+        <label for="participants">Участники и ответственные</label>
+        <p class="hint">Кто выполняет действия и кто отвечает за результат.</p>
+        <textarea
+          id="participants"
+          name="participants"
+          rows="4"
+          data-field
+          data-required="false"
+          data-title="Участники и ответственные"
+          aria-describedby="error-participants"></textarea>
+        <p class="error" id="error-participants" role="alert"></p>
+      </div>
+
+      <div class="field">
+        <label for="tools">Используемые инструменты</label>
+        <p class="hint">Почта, мессенджеры, таблицы, программы, документы.</p>
+        <textarea
+          id="tools"
+          name="tools"
+          rows="3"
+          data-field
+          data-required="false"
+          data-title="Используемые инструменты"
+          aria-describedby="error-tools"></textarea>
+        <p class="error" id="error-tools" role="alert"></p>
+      </div>
+
+      <div class="field">
+        <label for="problems">Известные проблемы</label>
+        <p class="hint">Что идёт не так. Отдельно отметьте, какие сведения взяты со слов клиента.</p>
+        <textarea
+          id="problems"
+          name="problems"
+          rows="4"
+          data-field
+          data-required="false"
+          data-title="Известные проблемы"
+          aria-describedby="error-problems"></textarea>
+        <p class="error" id="error-problems" role="alert"></p>
+      </div>
+
+      <div class="field">
+        <label for="desiredResult">Желаемый результат <span class="req">*</span></label>
+        <p class="hint">Что должно измениться после улучшения процесса.</p>
+        <textarea
+          id="desiredResult"
+          name="desiredResult"
+          rows="4"
+          data-field
+          data-required="true"
+          data-title="Желаемый результат"
+          aria-required="true"
+          aria-describedby="error-desiredResult"></textarea>
+        <p class="error" id="error-desiredResult" role="alert"></p>
+      </div>
+
+      <div class="actions">
+        <button type="button" id="load-example" class="btn btn-secondary">
+          Загрузить учебный пример
+        </button>
+        <button type="submit" class="btn btn-primary">
+          Сформировать бриф
+        </button>
+        <button type="button" id="download-brief" class="btn btn-secondary" disabled>
+          Скачать бриф
+        </button>
+        <p class="hint">Данные не сохраняются после закрытия или обновления страницы. Скачайте готовый бриф перед выходом.</p>
+      </div>
+
+      <p class="error-summary" id="error-summary" role="alert" hidden></p>
+    </form>
+
+    <section class="result" id="result-section" aria-labelledby="result-title">
+      <h2 id="result-title" tabindex="-1">Бриф</h2>
+      <p class="result-empty" id="result-empty">
+        Бриф появится здесь после нажатия кнопки «Сформировать бриф».
+      </p>
+      <pre id="brief-output" class="brief-output" aria-live="polite" hidden></pre>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
